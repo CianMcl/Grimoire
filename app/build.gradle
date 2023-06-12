@@ -1,0 +1,91 @@
+plugins {
+    id 'com.android.application'
+    // Add the Google services Gradle plugin
+    id 'com.google.gms.google-services'
+
+}
+
+android {
+    namespace 'com.example.grimoire'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.grimoire"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures{
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    def fragment_version = "1.6.0"
+    def lifecycle_version = "2.6.1"
+    def nav_version = "2.5.3"
+    def room_version = "2.5.1"
+    def material_version = "1.9.0"
+
+    //default
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation "com.google.android.material:material:$material_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //fragments
+    implementation "androidx.fragment:fragment:$fragment_version"
+
+    //view model + live data
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    //nav
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    //room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //annotations
+    implementation "androidx.annotation:annotation:1.6.0"
+
+    //quick fix from https://stackoverflow.com/questions/75263047/duplicate-class-in-kotlin-android
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    //firebase
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+
+    //firebase auth
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+
+    //https://firebase.google.com/docs/auth/android/google-signin?hl=en&authuser=0
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    //implementation 'com.facebook.android:facebook-android-sdk:8.x'
+
+
+
+
+}

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "129920229333",
+    "project_id": "grimoire-d89a3",
+    "storage_bucket": "grimoire-d89a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129920229333:android:8480b62f1f99bf6920675c",
+        "android_client_info": {
+          "package_name": "com.example.grimoire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129920229333-v6fhdqu1iuilrbps45a3up3th5unq6cp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.grimoire",
+            "certificate_hash": "c32a04ac2175aedb15f4dde47f9a700adb37a8ad"
+          }
+        },
+        {
+          "client_id": "129920229333-2e8tobonbho3m0pgf6onm0pgpljbumjs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVW_-j6EF1Hlxo0I_f6RyiIMCzCqsNC7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129920229333-20hjce63ro5as3884n087j7rfj0msdnf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

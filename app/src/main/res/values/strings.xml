@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Grimoire</string>
+    <string name="web_client_id">test</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="click_here_to_login">Already have an account? Go to login!</string>
+    <string name="click_here_to_register">No account? Click here to register!</string>
+    <string name="logout">Logout</string>
+    <string name="welcome_to_the_grimoire">Welcome to the Grimoire</string>
+    <string name="navigation_destinations">Navigation Destinations</string>
+    <string name="select_from_this_menu">Select from this menu.</string>
+    <string name="home">Home</string>
+    <string name="characters">Characters</string>
+    <string name="campaigns">Campaigns</string>
+    <string name="worldbuilding">Worldbuilding</string>
+    <string name="community">Community</string>
+    <string name="tools">Tools</string>
+    <string name="profile">Profile</string>
+    <string name="sign_out">Sign Out</string>
+</resources>

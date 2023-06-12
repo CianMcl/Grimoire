@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primaryDark">#421000</color>
+    <color name="primaryMedium">#843f00</color>
+    <color name="primaryLight">#FAB927</color>
+
+    <color name="secondaryDark">#0C6D00</color>
+    <color name="secondaryMedium">#4E9445</color>
+    <color name="secondaryLight">#FDFCE3</color>
+
+    <color name="error">#D12C2C</color>
+
+    <color name="text">#000000</color>
+
+</resources>

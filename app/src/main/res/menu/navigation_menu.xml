@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/nav_home_fragment"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/nav_char_fragment"
+        android:title="@string/characters" />
+    <item
+        android:id="@+id/nav_camp_fragment"
+        android:title="@string/campaigns" />
+    <item
+        android:id="@+id/nav_wb_fragment"
+        android:title="@string/worldbuilding" />
+    <item
+        android:id="@+id/nav_comm_fragment"
+        android:title="@string/community" />
+    <item
+        android:id="@+id/nav_tool_fragment"
+        android:title="@string/tools" />
+    <item
+        android:id="@+id/nav_prof_fragment"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/nav_leave_fragment"
+        android:title="@string/sign_out" />
+</menu>
