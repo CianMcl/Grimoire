@@ -1,7 +1,5 @@
 package com.example.grimoire.entity;
 
-import android.security.identity.IdentityCredentialStore;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,11 +8,11 @@ import androidx.room.PrimaryKey;
 
 @Entity (foreignKeys = {
         @ForeignKey(
-        entity = user.class,
+        entity = User.class,
         parentColumns = "userId",
         childColumns = "WUserId",
         onDelete = 1)})
-public class world {
+public class World {
 
     @PrimaryKey(autoGenerate = true)
     public int worldId;
@@ -34,7 +32,7 @@ public class world {
     @NonNull
     public int rating;
 
-    public world(
+    public World(
             @NonNull int WUserId,
             @NonNull String name,
             @NonNull String description,

@@ -23,8 +23,46 @@ public class ProfFragment extends Fragment {
 // Inflate the View for this fragment
         addBinding = NavProfFragmentBinding.inflate(inflater, container, false);
         View view = addBinding.getRoot();
+
+        addBinding.updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBinding.resetButton.setVisibility(View.VISIBLE);
+                addBinding.saveButton.setVisibility(View.VISIBLE);
+                addBinding.cancelButton.setVisibility(View.VISIBLE);
+
+                addBinding.updateButton.setVisibility(View.GONE);
+            }
+        });
+
+        addBinding.cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBinding.resetButton.setVisibility(View.GONE);
+                addBinding.saveButton.setVisibility(View.GONE);
+                addBinding.cancelButton.setVisibility(View.GONE);
+
+                addBinding.updateButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return view;
     }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

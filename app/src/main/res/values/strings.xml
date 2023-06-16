@@ -19,4 +19,14 @@
     <string name="tools">Tools</string>
     <string name="profile">Profile</string>
     <string name="sign_out">Sign Out</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="user_profile">User Profile</string>
+    <string name="user_name">User Name</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="edit_data">Edit Data</string>
+    <string name="reset_changes">Reset Changes</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancel</string>
 </resources>

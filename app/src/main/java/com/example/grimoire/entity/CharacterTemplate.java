@@ -9,11 +9,11 @@ import androidx.room.PrimaryKey;
 //import static android.arch.persistence.room.ForeignKey.Cascade;
 
 @Entity (foreignKeys = @ForeignKey(
-        entity = user.class,
+        entity = User.class,
         parentColumns = "userId",
         childColumns = "CTUserId",
         onDelete = 1))
-public class characterTemplate {
+public class CharacterTemplate {
 
     @PrimaryKey (autoGenerate = true)
     public int templateId;
@@ -242,7 +242,7 @@ public class characterTemplate {
     */
 
 
-    public characterTemplate(int CTUserId,
+    public CharacterTemplate(int CTUserId,
                              boolean listedPublic,
                              String attribute1,
                              String attribute1Type,

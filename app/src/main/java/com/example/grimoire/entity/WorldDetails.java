@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey;
 
 @Entity (foreignKeys = {
         @ForeignKey(
-                entity = user.class,
+                entity = User.class,
                 parentColumns = "worldId",
                 childColumns = "WUserId",
                 onDelete = 1)})
-public class worldDetails {
+public class WorldDetails {
 
     @PrimaryKey(autoGenerate = true)
     public int worldDetailsId;
@@ -31,7 +31,7 @@ public class worldDetails {
     @NonNull
     public boolean noteAvailable;
 
-    public worldDetails(
+    public WorldDetails(
             int WUserId,
             String noteName,
             String noteContent,

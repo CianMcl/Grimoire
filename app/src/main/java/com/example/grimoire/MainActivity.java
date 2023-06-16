@@ -20,8 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button logout;
-    TextView details;
+    //Button logout;
+    //TextView details;
     FirebaseUser user;
 
     private ActivityMainBinding binding;
@@ -69,8 +69,39 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.appBar.toolbar,navController,
                 mAppBarConfiguration);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /*
-        old
+        old code, in case I need it
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,9 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
-
-    }
-}
 
 
 /*

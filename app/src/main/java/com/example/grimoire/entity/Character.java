@@ -10,19 +10,19 @@ import androidx.room.PrimaryKey;
 
 @Entity (foreignKeys = {
         @ForeignKey(
-                entity = user.class,
+                entity = User.class,
                 parentColumns = "userId",
                 childColumns = "CUserId",
                 onDelete = 1
         ),
         @ForeignKey(
-                entity = character.class,
+                entity = Character.class,
                 parentColumns = "templateId",
                 childColumns = "CTemplateId",
                 onDelete = 1
         )
 })
-public class character {
+public class Character {
 
     @PrimaryKey (autoGenerate = true)
     public int characterId;
@@ -43,7 +43,7 @@ public class character {
     @NonNull
     public boolean publicAvailable;
 
-    public character(@NonNull int CUserId,
+    public Character(@NonNull int CUserId,
                      @NonNull int CTemplateId,
                      @NonNull String firstName,
                      @NonNull String lastName,
