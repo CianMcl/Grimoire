@@ -1,6 +1,7 @@
 package com.example.grimoire.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,16 +16,16 @@ public class user {
     @NonNull
     public String userName;
 
-    @ColumnInfo (name = "email")
-    @NonNull
+    @ColumnInfo (name = "first_name")
+    @Nullable
     public String email;
 
-    @ColumnInfo (name = "password")
-    @NonNull
+    @ColumnInfo (name = "last_name")
+    @Nullable
     public String password;
 
     @ColumnInfo (name = "date_of_birth")
-    @NonNull
+    @Nullable
     public String dob;
 
     public user (@NonNull String userName, @NonNull String email, @NonNull String dob, @NonNull String password){
