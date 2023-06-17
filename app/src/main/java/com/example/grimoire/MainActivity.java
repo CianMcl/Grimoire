@@ -1,17 +1,15 @@
 package com.example.grimoire;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.grimoire.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,16 +66,6 @@ public class MainActivity extends AppCompatActivity {
         //Sets up a Toolbar for use with a NavController.
         NavigationUI.setupWithNavController(binding.appBar.toolbar,navController,
                 mAppBarConfiguration);
-
-
-
-
-
-
-
-
-
-
 
 
 

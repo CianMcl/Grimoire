@@ -7,29 +7,33 @@
     <fragment
         android:id="@+id/nav_home_fragment"
         android:name="com.example.grimoire.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="Home Page" />
     <fragment
         android:id="@+id/nav_camp_fragment"
         android:name="com.example.grimoire.fragment.CampFragment"
-        android:label="CampFragment" />
+        android:label="Campaigns" />
     <fragment
         android:id="@+id/nav_char_fragment"
         android:name="com.example.grimoire.fragment.CharFragment"
-        android:label="CharFragment" />
+        android:label="Characters" />
     <fragment
         android:id="@+id/nav_comm_fragment"
         android:name="com.example.grimoire.fragment.CommFragment"
-        android:label="CommFragment" />
+        android:label="Community" />
     <fragment
         android:id="@+id/nav_prof_fragment"
         android:name="com.example.grimoire.fragment.ProfFragment"
-        android:label="ProfFragment" />
+        android:label="Your Profile" />
     <fragment
         android:id="@+id/nav_tool_fragment"
         android:name="com.example.grimoire.fragment.ToolFragment"
-        android:label="ToolFragment" />
+        android:label="Tools" />
     <fragment
         android:id="@+id/nav_wb_fragment"
         android:name="com.example.grimoire.fragment.WbFragment"
-        android:label="WbFragment" />
+        android:label="Worldbuilding" />
+    <fragment
+        android:id="@+id/nav_so_fragment"
+        android:name="com.example.grimoire.fragment.SoFragment"
+        android:label="Sign Out" />
 </navigation>
