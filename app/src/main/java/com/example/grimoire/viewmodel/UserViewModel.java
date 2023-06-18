@@ -29,7 +29,6 @@ public class UserViewModel extends AndroidViewModel {
     public CompletableFuture<User> findByIDFuture(final int userId){
         return gRepo.findByIDFuture(userId);
     }
-
      */
 
     public CompletableFuture<User> findByIDFuture(final String userName){
@@ -60,7 +59,10 @@ public class UserViewModel extends AndroidViewModel {
 
     public User getUserVM(final String userId){
         Log.e("Test 2", "Starting VM");
-        User vmReturn = gRepo.getUser(userId);
+        User vmReturn = new User();
+        Log.e("step", "created fresh user, calling grepo");
+        vmReturn = gRepo.getUser(userId);
+        Log.e("out of grepo", " returning to vm");
         return vmReturn;
     }
 

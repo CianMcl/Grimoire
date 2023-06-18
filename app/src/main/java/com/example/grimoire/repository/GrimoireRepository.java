@@ -31,6 +31,7 @@ public class GrimoireRepository {
     public User getUser(String userId){
         Log.e("Test 3", "Starting getUser");
         User toReturn = new User();
+        Log.e("created fake", "calling dao");
         toReturn = userDao.findByID(userId);
         return toReturn;
     }

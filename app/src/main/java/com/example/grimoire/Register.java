@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -74,7 +75,6 @@ public class Register extends AppCompatActivity {
 
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
 
-
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,10 +120,23 @@ public class Register extends AppCompatActivity {
 
                 //create account
                 //create user entry in my db
-                User created = new User(email, emptyFirst, emptyLast, dob);
-                userViewModel.insert(created);
+                //to do: crashes on same email
+                //done, should work?
+
+                Log.e("room test", "running first");
+
+                //I feel like this if statement is backwards, but it gives me what I want, so I'll roll with it
+                if (userViewModel.findByIDFuture(email) != null){
+                    User created = new User(email, emptyFirst, emptyLast, dob);
+                    userViewModel.insert(created);
+                } else {
+                    Toast.makeText(Register.this, "Account already exists", Toast.LENGTH_SHORT).show();
+                    bar.setVisibility(View.GONE);
+                    return;
+                }
 
                 //create firebase account
+                //doesn't do it until my room is working
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override

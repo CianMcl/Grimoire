@@ -29,4 +29,6 @@
     <string name="reset_changes">Reset Changes</string>
     <string name="save_changes">Save Changes</string>
     <string name="cancel">Cancel</string>
+    <string name="close_edit_mode">Close Edit Mode</string>
+    <string name="refresh_view">Refresh View</string>
 </resources>
