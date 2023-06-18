@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 //per lab 10
 
 @Database(  entities = {User.class},
-            version = 1,
+            version = 2,
             exportSchema = false)
 public abstract class GrimoireDatabase extends RoomDatabase {
     public abstract UserDAO userDao();

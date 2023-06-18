@@ -1,6 +1,7 @@
 package com.example.grimoire.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,14 +20,20 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-
         gRepo = new GrimoireRepository(application);
         allUsers = gRepo.getAllUsers();
 
     }
 
+    /*
     public CompletableFuture<User> findByIDFuture(final int userId){
         return gRepo.findByIDFuture(userId);
+    }
+
+     */
+
+    public CompletableFuture<User> findByIDFuture(final String userName){
+        return gRepo.findByIDFuture(userName);
     }
 
     public LiveData<List<User>> getAllUsers(){
@@ -45,6 +52,16 @@ public class UserViewModel extends AndroidViewModel {
         gRepo.updateUser(user);
     }
 
+    public LiveData<User> getSingleUser(final int userId){
 
+        //User singUser = gRepo.findByIDFuture();
+        return null;
+    }
+
+    public User getUserVM(final String userId){
+        Log.e("Test 2", "Starting VM");
+        User vmReturn = gRepo.getUser(userId);
+        return vmReturn;
+    }
 
 }

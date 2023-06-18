@@ -1,6 +1,7 @@
 package com.example.grimoire.repository;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -25,6 +26,13 @@ public class GrimoireRepository {
 
     public LiveData<List<User>> getAllUsers(){
         return allUsers;
+    }
+
+    public User getUser(String userId){
+        Log.e("Test 3", "Starting getUser");
+        User toReturn = new User();
+        toReturn = userDao.findByID(userId);
+        return toReturn;
     }
 
     public void insert(final User user){
@@ -64,6 +72,7 @@ public class GrimoireRepository {
         });
     }
 
+    /*
     public CompletableFuture<User> findByIDFuture(final int userId){
         return CompletableFuture.supplyAsync(new Supplier<User>() {
             @Override
@@ -72,7 +81,15 @@ public class GrimoireRepository {
             }
         }, GrimoireDatabase.databaseWriteExecutor);
     }
+*/
 
+    public CompletableFuture<User> findByIDFuture(String userName) {
+        return CompletableFuture.supplyAsync(new Supplier<User>() {
+            @Override
+            public User get() {
+                return userDao.findByID(userName);
+            }
+        }, GrimoireDatabase.databaseWriteExecutor);
+    }
+    }
 
-
-}

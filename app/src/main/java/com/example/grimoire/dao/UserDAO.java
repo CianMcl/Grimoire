@@ -15,11 +15,16 @@ import java.util.List;
 @Dao
 public interface UserDAO {
 
-    @Query("SELECT * FROM user ORDER BY userId ASC")
+    @Query("SELECT * FROM user ORDER BY user_name ASC")
     LiveData<List<User>> getAll();
 
+    /*
     @Query("SELECT * FROM user WHERE userId = :searchID LIMIT 1")
     User findByID(int searchID);
+     */
+
+    @Query("SELECT * FROM user WHERE user_name = :searchID LIMIT 1")
+    User findByID(String searchID);
 
     @Insert
     void insert(User user);
@@ -32,5 +37,6 @@ public interface UserDAO {
 
     @Query("DELETE FROM user")
     void deleteAll();
+
 
 }

@@ -2,6 +2,7 @@ package com.example.grimoire;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.grimoire.entity.User;
+import com.example.grimoire.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,6 +27,8 @@ public class Register extends AppCompatActivity {
 
     public TextInputEditText editTextEmail, editTextPassword, conTextPassword;
     public Button regButton;
+
+    private UserViewModel userViewModel;
 
     FirebaseAuth mAuth;
     ProgressBar bar;
@@ -67,13 +72,20 @@ public class Register extends AppCompatActivity {
 
             }});
 
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
+
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //strings
                 String email;
                 String password;
                 String confirm;
+
+                String emptyFirst = "Placeholder First";
+                String emptyLast = "Placeholder Last";
+                String dob = "Placeholder date";
 
                 bar.setVisibility(View.VISIBLE);
 
@@ -106,6 +118,11 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                //create account
+                //create user entry in my db
+                User created = new User(email, emptyFirst, emptyLast, dob);
+                userViewModel.insert(created);
+
                 //create firebase account
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -129,9 +146,6 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         });
-
-
-                //create user entry in db
 
 
             }
