@@ -1,14 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     android:orientation="vertical"
-    android:gravity="center">
+
+    >
+
     <TextView
         android:id="@+id/text_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="This is tools"
-        android:gravity="center_horizontal" />
-</LinearLayout>
+        android:gravity="center_horizontal"
+        android:text="@string/toolbox"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp" />
+
+    <Button
+        android:id="@+id/btn_dice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dice Roller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_message" />
+
+    <TextView
+        android:id="@+id/txt_whichDice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What kind of dice? D4/6/8/10/12/20/100 supported"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dice"
+        android:visibility="gone"/>
+
+    <Spinner
+        android:id="@+id/txtIn_whichDice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_whichDice"
+        android:visibility="gone"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtIn_whichDiceOld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_whichDice"
+        android:visibility="gone">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txt_howDice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How many to roll?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtIn_whichDice"
+        android:visibility="gone"/>
+
+    <Spinner
+        android:id="@+id/txtIn_howDice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_howDice"
+        android:visibility="gone"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtIn_howDiceOld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_howDice"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_roll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Roll the dice!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtIn_howDice"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/txt_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Results: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_roll"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/txt_resultsOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        app:layout_constraintStart_toEndOf="@+id/txt_results"
+        app:layout_constraintTop_toBottomOf="@+id/btn_roll"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_dummyData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_resultsOut" />
+
+    <Button
+        android:id="@+id/btn_dummyDataIns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dummyData" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

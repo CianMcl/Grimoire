@@ -31,4 +31,6 @@
     <string name="cancel">Cancel</string>
     <string name="close_edit_mode">Close Edit Mode</string>
     <string name="refresh_view">Refresh View</string>
+    <string name="toolbox">Toolbox</string>
+    <string name="_20">20</string>
 </resources>
