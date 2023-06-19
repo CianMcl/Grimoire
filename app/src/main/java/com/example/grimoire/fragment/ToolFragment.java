@@ -9,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.grimoire.R;
 import com.example.grimoire.databinding.NavCharFragmentBinding;
@@ -17,16 +19,28 @@ import com.example.grimoire.databinding.NavCommFragmentBinding;
 import com.example.grimoire.databinding.NavHomeFragmentBinding;
 import com.example.grimoire.databinding.NavProfFragmentBinding;
 import com.example.grimoire.databinding.NavToolFragmentBinding;
+import com.example.grimoire.entity.User;
+import com.example.grimoire.entity.World;
 import com.example.grimoire.viewmodel.SharedViewModel;
+import com.example.grimoire.viewmodel.UserViewModel;
+import com.example.grimoire.viewmodel.WorldViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import kotlin.random.URandomKt;
 
 public class ToolFragment extends Fragment {
     private SharedViewModel model;
     private NavToolFragmentBinding addBinding;
+    private UserViewModel userViewModel;
+    private WorldViewModel worldViewModel;
+    FirebaseAuth mAuth;
     public ToolFragment(){}
 
     boolean open = false;
@@ -147,10 +161,91 @@ public class ToolFragment extends Fragment {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+        //keep forgetting this bit lmao
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class); //ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
+        worldViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(WorldViewModel.class);
+
         addBinding.btnDummyDataIns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "This is where the data is inserted", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(), "This is where the data is inserted", Toast.LENGTH_SHORT).show();
+                String testAcc1 = "test@email.com";
+                String testAcc2 = "email@email.com";
+                String password = "123456";
+                Boolean check = false;
+
+                try
+                {
+                    CompletableFuture<User> test = userViewModel.findByIDFuture(testAcc1);
+                    if (test != null){
+                        check = true;
+                    }
+
+                } catch (Exception e){
+                    Log.e("Caught", "Should be null point");
+                }
+
+                //checks to see if a test account exists, don't think it's necessary to check both tbh
+                //if (userViewModel.findByIDFuture(testAcc1) == null){
+                if (check == true){
+                    //add accs to db
+                    User created = new User(testAcc1, "FakeFirst", "FakeLast", "FakeDob");
+                    userViewModel.insert(created);
+                    User created2 = new User(testAcc2, "FakeFirst2", "FakeLast2", "FakeDob2");
+                    userViewModel.insert(created2);
+
+                    //create firebase for later checks
+                    mAuth.createUserWithEmailAndPassword(testAcc1, password)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            Toast.makeText(getActivity().getApplicationContext(), "Acc 1 Added", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                    mAuth.createUserWithEmailAndPassword(testAcc2, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Acc 2 Added", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    //set up world objects
+                    World one = new World("test@email.com", "Elirea","A small forest island that is protected by the tree god", 4, "PUBLIC");
+                    World two = new World("test@email.com", "Mondstadt","A city of wine, windmills and cats", 7, "PRIVATE");
+                    World three = new World("test@email.com", "Wailes", "A land of mystery that covets a red dragon lord", 9, "PUBLIC");
+                    World four = new World("test@email.com", "Lythos", "A floating city protected by a divine being", 2, "PRIVATE");
+                    World five = new World("test@email.com", "Yokohema", "A city of the night which is protected by three rival groups", 10, "PUBLIC");
+                    World six = new World("email@email.com", "Castamere", "An isolated island that is surrounded by walls and ruled by a cruel mage", 5, "PUBLIC");
+                    World seven = new World("email@email.com", "Liyue", "The city of stone where the gods and humans have a somewhat complicated relationship", 3, "PRIVATE");
+                    World eight = new World("email@email.com", "Darkest Peru", "Thick jungle covers this dark and humid land... but can you smell the marmalade?", 6, "PUBLIC");
+                    World nine = new World("email@email.com", "Leblanc", "Get comfortable in this small town that is coveted for its magic coffee beans", 10, "PRIVATE");
+                    World ten = new World("email@email.com", "Valentia", "A land that is split in two, and ruled by two dueling dragon gods", 1, "PUBLIC");
+
+                    //add a bunch of worlds under each user
+                    worldViewModel.insert(one);
+                    worldViewModel.insert(two);
+                    worldViewModel.insert(three);
+                    worldViewModel.insert(four);
+                    worldViewModel.insert(five);
+                    worldViewModel.insert(six);
+                    worldViewModel.insert(seven);
+                    worldViewModel.insert(eight);
+                    worldViewModel.insert(nine);
+                    worldViewModel.insert(ten);
+
+                    //remove buttons
+                    addBinding.btnDummyData.setVisibility(View.GONE);
+                    addBinding.btnDummyDataIns.setVisibility(View.GONE);
+
+                    //toast
+                    Toast.makeText(getActivity().getApplicationContext(), "Data has been inserted", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Data already exists", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

@@ -205,7 +205,7 @@ public class ProfFragment extends Fragment {
                                             userViewModel.update(user);
                                             Log.e("Change", "Changed");
 
-                                            Toast.makeText(getActivity().getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity().getApplicationContext(), "Changes saved, you can now close edit mode.", Toast.LENGTH_LONG).show();
 
 
                                             //change display
