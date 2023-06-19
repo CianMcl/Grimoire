@@ -13,6 +13,7 @@ import com.example.grimoire.R;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private TextView view;
+
     public RecyclerViewHolder(@NonNull View itemView) {
         super(itemView);
         view = itemView.findViewById(R.id.randomText);

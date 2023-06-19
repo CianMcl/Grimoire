@@ -29,6 +29,17 @@
         app:layout_constraintTop_toBottomOf="@id/text_message"
         tools:layout_editor_absoluteX="15dp" />
 
+    <TextView
+        android:id="@+id/txt_all_user_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="example"
+        android:visibility="visible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_yours" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         class="androidx.appcompat.app.AlertController$RecycleListView"
@@ -36,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
-
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/txt_yours"
         >
         <!--app:layout_constraintBottom_toTopOf="@id/btn_add"-->

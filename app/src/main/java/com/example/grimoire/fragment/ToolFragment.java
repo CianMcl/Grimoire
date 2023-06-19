@@ -1,5 +1,7 @@
 package com.example.grimoire.fragment;
 
+import static android.content.Context.SENSOR_SERVICE;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.Toast;
 import com.example.grimoire.R;
 import com.example.grimoire.databinding.NavCharFragmentBinding;
 import com.example.grimoire.databinding.NavCommFragmentBinding;
@@ -33,7 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import kotlin.random.URandomKt;
 
 public class ToolFragment extends Fragment {
     private SharedViewModel model;
@@ -41,17 +50,28 @@ public class ToolFragment extends Fragment {
     private UserViewModel userViewModel;
     private WorldViewModel worldViewModel;
     FirebaseAuth mAuth;
+    private SensorManager sm;
+    private float acelVal,acelLast,shake;
     public ToolFragment(){}
 
     boolean open = false;
     boolean openDD = false;
 
+    //shakes per
+    //https://stackoverflow.com/questions/59906444/how-to-detect-shake-and-toast-a-message-after-shaking-the-phone-3-times-in-andro
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         addBinding = NavToolFragmentBinding.inflate(inflater, container, false);
         View view = addBinding.getRoot();
+
+        sm=(SensorManager) getContext().getSystemService(SENSOR_SERVICE);
+        sm.registerListener(sensorListener,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+
+        acelVal=SensorManager.GRAVITY_EARTH;
+        acelLast=SensorManager.GRAVITY_EARTH;
+        shake=0.00f;
 
         List<Integer> diceType = new ArrayList<Integer>();
         diceType.add(4);
@@ -114,6 +134,7 @@ public class ToolFragment extends Fragment {
             }
 
         });
+
 
         addBinding.btnRoll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,6 +274,46 @@ public class ToolFragment extends Fragment {
 
 
     }
+
+    private final SensorEventListener sensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float x =event.values[0];
+            float y =event.values[1];
+            float z =event.values[2];
+            acelLast=acelVal;
+            acelVal=(float) Math.sqrt((double) (x*x)+(y*y)+(z*z));
+            float delta= acelVal-acelLast;
+            shake =shake*0.9f+delta;
+
+            if(shake>12){
+                int typePos = addBinding.txtInWhichDice.getSelectedItemPosition();
+                int type = (int) addBinding.txtInWhichDice.getItemAtPosition(typePos);
+                int rollPos = addBinding.txtInHowDice.getSelectedItemPosition();
+                int rolls = (int) addBinding.txtInHowDice.getItemAtPosition(rollPos);
+
+                Log.e("Test of pos", typePos + " " + rollPos);
+                Log.e("Test of number", type + " " + rolls);
+
+                String results = "You rolled a D" + type + " " + rolls + " times.\nThe results are:";
+
+                for (int i = 0; i < rolls; i++){
+                    int res = (int) (Math.random() * (type-1)) + 1;
+                    results = results + "\n" + res;
+                }
+
+                addBinding.txtResults.setVisibility(View.VISIBLE);
+                addBinding.txtResultsOut.setText(results);
+                addBinding.txtResultsOut.setVisibility(View.VISIBLE);
+            }
+
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
     @Override
     public void onDestroyView() {
         super.onDestroyView();

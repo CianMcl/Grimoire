@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.grimoire.R;
 import com.example.grimoire.dao.UserDAO;
 import com.example.grimoire.dao.WorldDAO;
 import com.example.grimoire.database.GrimoireDatabase;
@@ -22,6 +21,7 @@ public class GrimoireRepository {
     private WorldDAO worldDao;
     private LiveData<List<User>> allUsers;
     private LiveData<List<World>> allWorlds;
+    private LiveData<List<World>> allUserWorld;
 
     public GrimoireRepository(Application application){
         GrimoireDatabase db = GrimoireDatabase.getInstance(application);
@@ -34,6 +34,25 @@ public class GrimoireRepository {
         return allUsers;
     }
     public LiveData<List<World>> getAllWorlds() {return allWorlds;}
+
+    public LiveData<List<World>> getAllUserWorld(String userId){
+        allUserWorld = worldDao.getAllUserWorld(userId);
+        return allUserWorld;
+    }
+
+    /*
+    public CompletableFuture<LiveData<List<World>>> getAllUserWorlds(String userId)
+    {
+        return CompletableFuture.supplyAsync(new Supplier<LiveData<List<World>>>() {
+            @Override
+            //public World get() {return worldDao.findById(worldId);}
+            public LiveData<List<World>> get(){
+                return worldDao.getAllUserWorld(userId);
+            }
+        });
+    }
+
+     */
 
     public User getUser(String userId){
         Log.e("Test 3", "Starting getUser");
@@ -127,6 +146,7 @@ public class GrimoireRepository {
             }
         });
     }
+
 
 
     public CompletableFuture<User> findByIDFuture(String userName) {

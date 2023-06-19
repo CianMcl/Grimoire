@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grimoire.entity.World;
+import com.example.grimoire.recycle.RecyclerViewHolder;
+import com.example.grimoire.recycle.WorldListUserAdapter;
 import com.example.grimoire.viewmodel.SharedViewModel;
 import com.example.grimoire.viewmodel.UserViewModel;
 import com.example.grimoire.viewmodel.WorldViewModel;
@@ -23,6 +27,7 @@ import com.example.grimoire.R;
 import com.example.grimoire.databinding.NavWbFragmentBinding;
 import com.example.grimoire.recycle.RandomNumListAdapter;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -37,6 +42,9 @@ public class WbFragment extends Fragment {
     String curDesc;
     String curPub;
 
+    LiveData<List<World>> worldList;
+
+    //private RecyclerView.Adapter wAdapter;
 
     private NavWbFragmentBinding addBinding;
     public WbFragment(){}
@@ -51,12 +59,43 @@ public class WbFragment extends Fragment {
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class); //ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
         worldViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(WorldViewModel.class);
 
-
         //recycler view
         RecyclerView recyclerView;
         //as insisted this be an array. I'm not sure why tbh
         final boolean[] recycleOpen = {true};
         final boolean[] recycleOpenEdit = {true};
+
+        String currentUser = mAuth.getCurrentUser().getEmail();
+        //worldList = worldViewModel.getAllUserWorld(currentUser);
+        //abandoning recycler view because it isn't playing nice with the livedata list
+
+        //okay look, it's fucking stupid but I'm going to try the recycle again
+
+        //the below actually works, and it took three bloody minutes. I'm going to try stealing the list.
+
+
+        worldViewModel.getAllUserWorld(currentUser).observe(getViewLifecycleOwner(), new Observer<List<World>>() {
+            @Override
+            public void onChanged(final List<World> worlds) {
+                String userWorlds ="";
+                for (World temp: worlds){
+                    String interiorWorlds = (
+                            "ID: " + temp.worldId +"\n" +
+                            "Name: " + temp.name + "\n" +
+                            "Description: " + temp.description
+                            );
+                    userWorlds = userWorlds + System.getProperty("line.separator") + interiorWorlds;
+                }
+
+                addBinding.txtAllUserWorld.setText(userWorlds);
+            }
+
+        });
+
+        //god damn it
+        //it's like... a sliver away from being done
+        //but it's just out of reach. I've got less than two hours left and I've already spent over three on it
+
 
         // Inflate the View for this fragment
         addBinding = NavWbFragmentBinding.inflate(inflater, container, false);
@@ -64,16 +103,16 @@ public class WbFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         //default from guide source in function
-        recyclerView.setAdapter(new RandomNumListAdapter(1234));
+        //recyclerView.setAdapter(new RandomNumListAdapter(1234));
 
-
-
-
-
-
+        //my adapter
+        //recyclerView.setAdapter(new WorldListUserAdapter(worldList));
+        recyclerView.setAdapter(new WorldListUserAdapter());
+        //recyclerView.setVisibility(View.VISIBLE);
 
 
 
@@ -86,7 +125,7 @@ public class WbFragment extends Fragment {
                     //hide splash
                     addBinding.txtYours.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
-
+                    addBinding.txtAllUserWorld.setVisibility(View.GONE);
                     addBinding.btnAdd.setVisibility(View.GONE);
                     addBinding.btnEdit.setVisibility(View.GONE);
 
@@ -108,9 +147,11 @@ public class WbFragment extends Fragment {
 
                 else
                 {
-                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    //recyclerView.setVisibility(View.VISIBLE);
                     addBinding.btnAdd.setVisibility(View.VISIBLE);
                     addBinding.btnEdit.setVisibility(View.VISIBLE);
+                    addBinding.txtAllUserWorld.setVisibility(View.VISIBLE);
                     addBinding.txtYours.setVisibility(View.VISIBLE);
 
                     //all off
@@ -142,6 +183,7 @@ public class WbFragment extends Fragment {
                     recyclerView.setVisibility(View.GONE);
                     addBinding.btnAdd.setVisibility(View.GONE);
                     addBinding.btnEdit.setVisibility(View.GONE);
+                    addBinding.txtAllUserWorld.setVisibility(View.GONE);
 
                     //show edit buttons
                     addBinding.btnSaveEdit.setVisibility(View.VISIBLE);
@@ -158,9 +200,11 @@ public class WbFragment extends Fragment {
 
                 else
                 {
-                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    //recyclerView.setVisibility(View.VISIBLE);
                     addBinding.btnAdd.setVisibility(View.VISIBLE);
                     addBinding.btnEdit.setVisibility(View.VISIBLE);
+                    addBinding.txtAllUserWorld.setVisibility(View.VISIBLE);
                     addBinding.txtYours.setVisibility(View.VISIBLE);
 
                     //all off
@@ -188,9 +232,11 @@ public class WbFragment extends Fragment {
                 //just turn everything off and then turn on the base stuff tbh
 
                 //on
-                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                //recyclerView.setVisibility(View.VISIBLE);
                 addBinding.btnAdd.setVisibility(View.VISIBLE);
                 addBinding.btnEdit.setVisibility(View.VISIBLE);
+                addBinding.txtAllUserWorld.setVisibility(View.VISIBLE);
                 addBinding.txtYours.setVisibility(View.VISIBLE);
 
                 //all off
@@ -259,7 +305,9 @@ public class WbFragment extends Fragment {
 
                 //reset to home
                 if (workingSave == true) {
-                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    //recyclerView.setVisibility(View.VISIBLE);
+                    addBinding.txtAllUserWorld.setVisibility(View.VISIBLE);
                     addBinding.btnAdd.setVisibility(View.VISIBLE);
                     addBinding.btnEdit.setVisibility(View.VISIBLE);
                     addBinding.txtYours.setVisibility(View.VISIBLE);
@@ -400,10 +448,12 @@ public class WbFragment extends Fragment {
 
                 //reset fragment to home
                 if (workingEditSave[0] == true) {
-                    recyclerView.setVisibility(View.VISIBLE);
+                    //recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                     addBinding.btnAdd.setVisibility(View.VISIBLE);
                     addBinding.btnEdit.setVisibility(View.VISIBLE);
                     addBinding.txtYours.setVisibility(View.VISIBLE);
+                    addBinding.txtAllUserWorld.setVisibility(View.VISIBLE);
 
                     //all off
                     addBinding.btnSave.setVisibility(View.GONE);
